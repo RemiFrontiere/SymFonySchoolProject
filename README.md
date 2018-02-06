@@ -8,6 +8,7 @@ Components : https://github.com/symfony/symfony
 
 Form themes :  https://symfony.com/doc/current/form/form_themes.html
 
+
 ## Install dependencies
 >composer install
 or
@@ -23,3 +24,6 @@ or
 >bin/console config:dump-reference framework
 
 >bin/console config:dump-reference webserver
+
+## Database has been created ?
+>bin/console doctrine:database/create
