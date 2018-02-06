@@ -35,5 +35,5 @@ or
     /**
      * @ORM\Id                      --> For PRIMARY KEY
      * @ORM\GeneratedValue          --> Auto-Generated Value
-     * @ORM\Column(type="integer")  --> Column type
+     * @ORM\Column(type="integer")  --> Column type -- Default(string)
      */
