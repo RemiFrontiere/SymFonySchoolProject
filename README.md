@@ -33,6 +33,15 @@ or
 
 >bin/console doctrine:schema:update
 
+>bin/console doctrine:migration:diff
+
+>bin/console doctrine:migration:execute [NumMigration]
+
+Pour moi :
+>bin/console doctrine:migration:execute 20180206095108
+
+
+
 
 
 ## Doctrine DB
