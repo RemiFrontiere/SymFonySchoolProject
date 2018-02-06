@@ -33,12 +33,17 @@ class ShowController extends Controller{
         $form->handleRequest($request);
 
         if($form->isValid()){
-            dump($show); die;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($show);
+            $em->flush();
 
             // Upload file
 
             // Save
 
+            $this->addFlash('sucess', 'You successfully added a new show !');
+
+            return $this->redirectToRoute('show_list');
 
         }
 
