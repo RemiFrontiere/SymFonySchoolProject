@@ -6,5 +6,17 @@
 {% endblock %}
 
 {% block content %}
-    {{ form(showForm)  }}
+    {#{{ form(showForm)  }}#}
+    {{ form_start(showForm, {"attr":{"novalidate":"novalidate"}}) }}
+        {#{{ form_widget(showForm) }} #}{# Permet de rendre tout les champs #}
+        {#{{ form_row(showForm.name) }} #}{# Permet de rendre un seul champ #}
+
+        {{ form_label(showForm.name) }}
+        {{ form_widget(showForm.name) }}
+        {{ form_errors(showForm.name) }}
+        {{ form_rest(showForm) }}  {# On rend le reste des champs #}
+        <input type="submit" value="Create"/> {# On place après le/les champs rendu #}
+
+    {{ form_end(showForm) }} {# On ferme #}
+
 {% endblock %}
