@@ -27,3 +27,13 @@ or
 
 ## Database has been created ?
 >bin/console doctrine:database/create
+
+
+
+
+## Doctrine DB
+    /**
+     * @ORM\Id                      --> For PRIMARY KEY
+     * @ORM\GeneratedValue          --> Auto-Generated Value
+     * @ORM\Column(type="integer")  --> Column type
+     */
