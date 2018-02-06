@@ -1,6 +1,13 @@
 SchoolSymfony
 ==============
 
+## Usefull link
+https://symfony.com/
+
+Components : https://github.com/symfony/symfony
+
+Form themes :  https://symfony.com/doc/current/form/form_themes.html
+
 ## Install dependencies
 >composer install
 or
