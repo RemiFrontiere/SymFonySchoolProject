@@ -26,7 +26,7 @@ or
 >bin/console config:dump-reference webserver
 
 ## Database has been created ?
->bin/console doctrine:database/create
+>bin/console doctrine:database:create
 
 
 
