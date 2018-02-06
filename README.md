@@ -37,7 +37,7 @@ or
 
 >bin/console doctrine:migration:execute [NumMigration]
 
-Pour moi :
+For me :
 >bin/console doctrine:migration:execute 20180206095108
 
 
