@@ -11,6 +11,8 @@ or
 
 ## Get environment variable available for this bundle
 >bin/console config:dump-reference [NomBundle] (sans Bundle)
-Exemple:
+
+### Exemple:
 >bin/console config:dump-reference framework
+
 >bin/console config:dump-reference webserver
