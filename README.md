@@ -28,6 +28,9 @@ or
 ## Database has been created ?
 >bin/console doctrine:database:create
 
+## Database commands
+>bin/console doctrine:schema:create
+>bin/console doctrine:schema:update
 
 
 
