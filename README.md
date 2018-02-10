@@ -54,5 +54,7 @@ For me :
      
 # Example of insert into Category 
 >insert into category(name)  values ('Science-Fiction');
+
 >insert into category(name)  values ('Romantique');
+
 >insert into category(name)  values ('Action');
