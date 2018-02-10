@@ -9,12 +9,16 @@ Components : https://github.com/symfony/symfony
 Form themes :  https://symfony.com/doc/current/form/form_themes.html
 
 
+## Clone repository
+git clone https://github.com/RemiFrontiere/SymfonySchoolProject.git
+
+
 ## Install dependencies
 >composer install
 or
 >php composer.phar install
 
-## Start
+## Start server
 >bin/console server:run
 
 ## Get environment variable available for this bundle
