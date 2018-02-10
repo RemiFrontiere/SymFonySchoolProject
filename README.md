@@ -50,3 +50,9 @@ For me :
      * @ORM\GeneratedValue          --> Auto-Generated Value
      * @ORM\Column(type="integer")  --> Column type -- Default(string)
      */
+     
+     
+ # Example of insert into Category 
+    >insert into category(name)  values ('Science-Fiction');
+    >insert into category(name)  values ('Romantique');
+    >insert into category(name)  values ('Action');
