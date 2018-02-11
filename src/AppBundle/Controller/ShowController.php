@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Show;
 use AppBundle\Type\ShowType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -37,22 +38,20 @@ class ShowController extends Controller{
             $em->persist($show);
             $em->flush();
 
-            // Upload file
-
-            // Save
-
             $this->addFlash('sucess', 'You successfully added a new show !');
 
             return $this->redirectToRoute('show_list');
 
         }
 
-        return $this->render('create/create.html.twig', ['showForm'=>$form->createView()]);
+        return $this->render('create/create.html.twig', ['form'=>$form->createView()]);
     }
 
     public function categoriesAction(){
-        return $this->render('_includes/categories.html.twig',[
-                'categories' => ['Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript','Typescript', 'Typescript', 'Valar morghulis', 'Typescript', 'Typescript', 'Typescript']
-            ]);
+      $repository = $this->getDoctrine()->getRepository(Category::class);
+          $categories = $repository->findAll();
+          return $this->render('show/categories.html.twig', [
+              'categories' => $categories
+          ]);
     }
 }

@@ -6,17 +6,40 @@
 {% endblock %}
 
 {% block content %}
-    {#{{ form(showForm)  }}#}
-    {{ form_start(showForm, {"attr":{"novalidate":"novalidate"}}) }}
-        {#{{ form_widget(showForm) }} #}{# Permet de rendre tout les champs #}
-        {#{{ form_row(showForm.name) }} #}{# Permet de rendre un seul champ #}
-
-        {{ form_label(showForm.name) }}
-        {{ form_widget(showForm.name) }}
-        {{ form_errors(showForm.name) }}
-        {{ form_rest(showForm) }}  {# On rend le reste des champs #}
-        <input type="submit" value="Create"/> {# On place après le/les champs rendu #}
-
-    {{ form_end(showForm) }} {# On ferme #}
-
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    </div>
 {% endblock %}
+
+
+ {% block search %}
+     <!-- Sidebar Widgets Column -->
+     <div class="col-md-4">
+
+         <!-- Search Widget -->
+         <div class="card my-4">
+             <h5 class="card-header">Search</h5>
+             <div class="card-body">
+                 <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Search for...">
+                     <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+                 </div>
+             </div>
+         </div>
+
+         {{ render(controller("AppBundle\\Controller\\ShowController::categoriesAction")) }}
+
+         <!-- Side Widget -->
+         <div class="card my-4">
+             <h5 class="card-header">Side Widget</h5>
+             <div class="card-body">
+                 You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+             </div>
+         </div>
+
+     </div>
+
+ {% endblock %}

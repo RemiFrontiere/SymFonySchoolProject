@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <title>Blog Home - Start Bootstrap Template</title>
+
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
     <!-- Custom styles for this template -->
-    <link href="css/blog-home.css" rel="stylesheet">
+    <link href="{{asset('css/blog-home.css')}}" rel="stylesheet">
+
 </head>
+
 <body>
 
-{# {% include "_includes/menu.html.twig" %} #}
+{#{% include "_includes/menu.html.twig" %}#}
 {% embed "_includes/menu.html.twig" %}
     {% block menu_title %}
-        {{ parent() }} by Dreamteam
+        {{ parent() }} by Dreamteam - {% if app.environment != 'prod' %}Current env = {{ app.environment }} {% endif %}
     {% endblock %}
 {% endembed %}
 
+{% for label, messages in app.flashes %}
+<div class="alert alert-{{ label }}" role="alert">
+    {%  for message in messages %}
+    {{ message }}
+    {% endfor %}
+</div>
+{% endfor %}
 <!-- Page Content -->
 <div class="container">
+
     <div class="row">
+
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-            <h1 class="my-4">{% block pageHeading %}Page Heading
-                <small>Secondary Text</small>{% endblock %}
+            <h1 class="my-4">{% block pageHeading %}
+                Page Heading
+                <small>Secondary Text</small>
+                {% endblock %}
             </h1>
-            {% block content%}{% endblock content %}
+
+            <!-- Blog Post -->
+            {% block content %}{% endblock %}
         </div>
+        <!-- /.row -->
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
+
             <!-- Search Widget -->
             <div class="card my-4">
                 <h5 class="card-header">Search</h5>
@@ -46,7 +68,9 @@
                 </div>
             </div>
 
+            <!-- Categories Widget -->
             {{ render(controller("AppBundle\\Controller\\ShowController::categoriesAction")) }}
+
             <!-- Side Widget -->
             <div class="card my-4">
                 <h5 class="card-header">Side Widget</h5>
@@ -54,11 +78,11 @@
                     You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
                 </div>
             </div>
-        </div>
     </div>
-    <!-- /.row -->
 </div>
-<!-- /.container -->
+    <!-- /.container -->
+
+</div>
 <!-- Footer -->
 <footer class="py-5 bg-dark">
     <div class="container">
@@ -66,8 +90,11 @@
     </div>
     <!-- /.container -->
 </footer>
+
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+
 </body>
+
 </html>
