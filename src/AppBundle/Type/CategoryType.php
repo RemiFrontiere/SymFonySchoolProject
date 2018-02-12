@@ -17,4 +17,3 @@ class CategoryType extends AbstractType
             ->add('save', SubmitType::class);
     }
 }
- ?>
