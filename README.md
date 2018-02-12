@@ -45,8 +45,10 @@ For me :
 >bin/console doctrine:migration:execute 20180206095108
 
 
+### Search a service
+>bin/console debug:container [Servicename]
 
-
+container [nameElement]
 
 ## Doctrine DB
     /**
