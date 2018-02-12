@@ -6,6 +6,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Show;
 use AppBundle\File\FileUploader;
 use AppBundle\Type\ShowType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class ShowController extends Controller{
     /**
      * @Route("/", name="list")
      */
-    public function listAction(){
+    public function listAction(Request $request){
       $showRepository = $this->getDoctrine()->getRepository('AppBundle:Show');
       $session = $request->getSession();
 
@@ -54,7 +55,7 @@ class ShowController extends Controller{
            return $this->redirectToRoute('show_list');
        }
 
-       return $this->render('show/create.html.twig', ['showForm' => $form->createView()]);
+       return $this->render('create/create.html.twig', ['showForm' => $form->createView()]);
     }
 
 
@@ -78,6 +79,11 @@ class ShowController extends Controller{
           ]);
     }
 
+
+    /**
+     * @Route("/delete", name="delete")
+     * @Method({"POST"})
+     */
     public function deleteAction(Request $request){
       $showId = $request->request->get('show_id');
       $show = $this->getDoctrine()->getRepository('AppBundle:Show')->findOneById($showId);
@@ -85,6 +91,11 @@ class ShowController extends Controller{
       if(!$show){
         throw new NotFoundException(sprintf('There is no show with the id %d', $showId));
       }
-      die('Delete');
+      $doctrine->getManager()->remove($show);
+      $doctrine->getManager()->flush();
+
+      $this->addFlash('success', 'Show successfully deleted !!!!');
+
+      return $this->redirectToRoute('show_list');
     }
 }
