@@ -2,13 +2,13 @@
 
 namespace AppBundle\ShowFinder;
 
-class DBShowFinder implements ShowFinderInterface{
+class OMDBShowFinder implements ShowFinderInterface{
 
   public function findByName($query){
-    return;
+
   }
 
   public function getName(){
-    return 'Local Database';
+    return 'IMDB API';
   }
 }

@@ -6,6 +6,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Show;
 use AppBundle\File\FileUploader;
 use AppBundle\Type\ShowType;
+use AppBundle\ShowFinder\ShowFinder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,17 +25,26 @@ class ShowController extends Controller{
     /**
      * @Route("/", name="list")
      */
-    public function listAction(Request $request){
-      $showRepository = $this->getDoctrine()->getRepository('AppBundle:Show');
+    public function listAction(Request $request,  ShowFinder $showfinder){
       $session = $request->getSession();
+      $showRepository = $this->getDoctrine()->getRepository('AppBundle:Show');
 
       if ($session->has('query_search_shows')) {
-          $querySearchShows = $session->get('query_search_shows');
-          $shows = $showRepository->findAllByQuery($querySearchShows);
-          $request->getSession()->remove('query_search_shows');
-      } else {
-          $shows = $showRepository->findAll();
+        $shows = $showfinder->searchByName($session->get('query_search_shows'));
       }
+      else{
+        $shows = $showRepository->findAll();
+      }
+      // $showRepository = $this->getDoctrine()->getRepository('AppBundle:Show');
+      // $session = $request->getSession();
+      //
+      // if ($session->has('query_search_shows')) {
+      //     $querySearchShows = $session->get('query_search_shows');
+      //     $shows = $showRepository->findAllByQuery($querySearchShows);
+      //     $request->getSession()->remove('query_search_shows');
+      // } else {
+      //     $shows = $showRepository->findAll();
+      // }
 
       return $this->render('show/list.html.twig', ['shows' => $shows]);
     }
@@ -110,9 +120,8 @@ class ShowController extends Controller{
     {
         $doctrine = $this->getDoctrine();
         $showId = $request->request->get('show_id');
-        //$show = $this->getDoctrine()->getRepository('AppBundle:Show')->findOneBy(['id' => $showId]);
         if (!$show = $doctrine->getRepository('AppBundle:Show')->findOneById($showId)) {
-            throw new NotFoundHttpException(sprintf('There is no show with the id %d', $showId));
+          throw new NotFoundHttpException(sprintf('There is no show with the id %d', $showId));
         }
         $csrfToken = new CsrfToken('delete_show', $request->request->get('_csrf_token'));
         if ($csrfTokenManager->isTokenValid($csrfToken)) {
