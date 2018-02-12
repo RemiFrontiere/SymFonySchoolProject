@@ -39,14 +39,16 @@ or
 
 >bin/console doctrine:migration:diff
 
+>bin/console doctrine:migration:migrate
+
 >bin/console doctrine:migration:execute [NumMigration]
 
 For me :
 >bin/console doctrine:migration:execute 20180206095108
 
 
-
-
+### Search a service
+>bin/console debug:container [Servicename]
 
 ## Doctrine DB
     /**
@@ -62,3 +64,26 @@ For me :
 >insert into category(name)  values ('Romantique');
 
 >insert into category(name)  values ('Action');
+
+
+
+
+## Etapes DB :
+
+1. Creer fichier php dans Entity --> Exemple.php
+2. Donner à ce fichier le namespace AppBundle\Entity
+3. Ajouter les uses : 
+
+>use Doctrine\ORM\Mapping as ORM;
+
+4. Ajouter la class  Exemple
+5. Ajouter les attributs privée
+    1. ID --> 
+    
+    /**
+  * @ORM\Id
+  * @ORM\GeneratedValue
+  * @ORM\Column(type="integer")
+  */
+  
+  private $id;
