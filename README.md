@@ -9,12 +9,16 @@ Components : https://github.com/symfony/symfony
 Form themes :  https://symfony.com/doc/current/form/form_themes.html
 
 
+## Clone repository
+git clone https://github.com/RemiFrontiere/SymfonySchoolProject.git
+
+
 ## Install dependencies
 >composer install
 or
 >php composer.phar install
 
-## Start
+## Start server
 >bin/console server:run
 
 ## Get environment variable available for this bundle
@@ -50,3 +54,11 @@ For me :
      * @ORM\GeneratedValue          --> Auto-Generated Value
      * @ORM\Column(type="integer")  --> Column type -- Default(string)
      */
+     
+     
+# Example of insert into Category 
+>insert into category(name)  values ('Science-Fiction');
+
+>insert into category(name)  values ('Romantique');
+
+>insert into category(name)  values ('Action');
