@@ -61,6 +61,37 @@ class ShowController extends Controller{
        return $this->render('create/create.html.twig', ['showForm' => $form->createView()]);
     }
 
+    /**
+    * @Route("/update/{id}", name="update")
+    */
+   public function updateAction(Show $show, Request $request, FileUploader $fileUploader)
+   {
+       $showForm = $this->createForm(ShowType::class, $show, [
+           'validation_groups' => ['update']
+       ]);
+       $showForm->handleRequest($request);
+       if ($showForm->isValid()) {
+           if ($show->getTmpPicture() != null) {
+               $generatedFileName = $fileUploader->upload($show->getTmpPicture(), $show->getCategory()->getName());
+               $show->setMainPicture($generatedFileName);
+           }
+           $this->getDoctrine()->getManager()->flush();
+           $this->addFlash('success', 'You successfully update the show!');
+           return $this->redirectToRoute('show_list');
+       }
+       return $this->render('create/create.html.twig', [
+           'showForm' => $showForm->createView(),
+           'show' => $show,
+       ]);
+   }
+
+    public function categoriesAction(){
+      $repository = $this->getDoctrine()->getRepository(Category::class);
+      $categories = $repository->findAll();
+      return $this->render('show/categories.html.twig', [
+        'categories' => $categories
+      ]);
+    }
 
     /**
      * @Route("/search", name="search")
@@ -71,41 +102,26 @@ class ShowController extends Controller{
         $request->getSession()->set('query_search_shows', $request->request->get('query'));
         return $this->redirectToRoute('show_list');
     }
-
-
-
-    public function categoriesAction(){
-      $repository = $this->getDoctrine()->getRepository(Category::class);
-          $categories = $repository->findAll();
-          return $this->render('show/categories.html.twig', [
-              'categories' => $categories
-          ]);
-    }
-
-
     /**
      * @Route("/delete", name="delete")
-     * @Method({"POST"})
+     * @Method({"DELETE"})
      */
-    public function deleteAction(Request $request, CsrfTokenManagerInterface $csrfTokenManager){
-      $showId = $request->request->get('show_id');
-      $show = $this->getDoctrine()->getRepository('AppBundle:Show')->findOneById($showId);
-
-      if(!$show){
-        throw new NotFoundException(sprintf('There is no show with the id %d', $showId));
-      }
-
-      $csrfToken = new CsrfToken('delete_show', $request->request->get('_csrf_token'));
-
-      if($csrfTokenManager->isTokenValid($csrfToken)){
-        $doctrine->getManager()->remove($show);
-        $doctrine->getManager()->flush();
-
-        $this->addFlash('success', 'The show have been successfully deleted.');
-
-      }else{
-        $this->addFlash('success', 'Csrf Token not valid. No deletion');
-      }
-      return $this->redirectToRoute('show_list');
+    public function deleteAction(Request $request, CsrfTokenManagerInterface $csrfTokenManager)
+    {
+        $doctrine = $this->getDoctrine();
+        $showId = $request->request->get('show_id');
+        //$show = $this->getDoctrine()->getRepository('AppBundle:Show')->findOneBy(['id' => $showId]);
+        if (!$show = $doctrine->getRepository('AppBundle:Show')->findOneById($showId)) {
+            throw new NotFoundHttpException(sprintf('There is no show with the id %d', $showId));
+        }
+        $csrfToken = new CsrfToken('delete_show', $request->request->get('_csrf_token'));
+        if ($csrfTokenManager->isTokenValid($csrfToken)) {
+            $doctrine->getManager()->remove($show);
+            $doctrine->getManager()->flush();
+            $this->addFlash('success', 'The show have been successfully deleted.');
+        } else {
+            $this->addFlash('danger', 'Then csrf token is not valid. The deletion was not completed.');
+        }
+        return $this->redirectToRoute('show_list');
     }
 }

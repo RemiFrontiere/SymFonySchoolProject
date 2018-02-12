@@ -7,17 +7,16 @@
 {% block content %}
   {% for show in shows %}
   <div class="card mb-4">
-    <img class="card-img-top" src="{{ asset(upload_folder ~'/'~ show.mainPicture) }}" alt="{{ show.name}}">
+    <img class="card-img-top" src="{{ asset('/upload/' ~ show.mainPicture) }}" alt="{{ show.name}}">
     <div class="card-body">
       <h2 class="card-title">{{ show.Name }}</h2>
       <p class="card-text">{{ show.abstract }}</p>
       <a href="{{ path('show_update', {'id': show.id}) }}" class="btn btn-primary">Update &rarr;</a>
 
-      <form action="{{ path('show_delete')}}" method="post">
-        <input type="hidden" name="show_id" value="{{ s.id }}">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_show')}}">
-        <button type="submit" name="btn btn-danger">Delete</button>
-      </form>
+      <form action="{{ path('show_delete') }}" method="POST">
+           <input type="hidden" name="show_id" value="{{ show.id }}" />
+           <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_show') }}" />
+           <input type="hidden" name="_method" value="DELETE" />
     </div>
     <div class="card-footer text-muted">
       Posted on {{ show.releaseDate | date('d, M Y') }} by

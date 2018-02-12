@@ -19,7 +19,7 @@
             {% if app.request.attributes.get('_route') == 'show_update' and show.mainPicture is not null %}
             <div>
                 <label for="existing_picture">Current main picture</label>
-                <img name="existing_picture" width="200px" src="{{ asset(upload_folder ~'/'~ show.mainPicture) }}" alt="{{ show.name }}"/>
+                <img name="existing_picture" width="200px" src="{{  asset('/upload/' ~ show.mainPicture) }}" alt="{{ show.name }}"/>
             </div>
             <hr />
             {% endif %}
