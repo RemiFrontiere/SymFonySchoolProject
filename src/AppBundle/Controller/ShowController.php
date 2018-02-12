@@ -47,6 +47,44 @@ class ShowController extends Controller{
         return $this->render('create/create.html.twig', ['form'=>$form->createView()]);
     }
 
+
+
+
+
+    /**
+     * @Route("/update/{id}", name="update")
+     */
+     public function updateAction(Request $request, $id) {
+         $show = $this->getDoctrine()->getRepository(Show::class)->find($id);
+         if(!$show) {
+             throw $this->createNotFoundException(
+                 'No products found for '.$id
+             );
+         }
+         $picture = $show->getPathMainPicture()->getFilename();
+         $form = $this->createForm(ShowType::class, $show);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
+             if(!$show->getPathMainPicture()) {
+                 $show->setPathMainPicture($picture);
+             }
+             $em = $this->getDoctrine()->getManager();
+             $em->merge($show);
+             $em->flush();
+             $this->addFlash(
+                 'success',
+                 'Show updated'
+             );
+             return $this->redirectToRoute('list_show');
+         }
+         return $this->render('show/update.html.twig', [
+             'form' => $form->createView(),
+             'show' => $show,
+         ]);
+     }
+
+
+
     public function categoriesAction(){
       $repository = $this->getDoctrine()->getRepository(Category::class);
           $categories = $repository->findAll();
