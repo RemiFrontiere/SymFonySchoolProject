@@ -10,6 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 
 //
@@ -84,18 +87,25 @@ class ShowController extends Controller{
      * @Route("/delete", name="delete")
      * @Method({"POST"})
      */
-    public function deleteAction(Request $request){
+    public function deleteAction(Request $request, CsrfTokenManagerInterface $csrfTokenManager){
       $showId = $request->request->get('show_id');
       $show = $this->getDoctrine()->getRepository('AppBundle:Show')->findOneById($showId);
 
       if(!$show){
         throw new NotFoundException(sprintf('There is no show with the id %d', $showId));
       }
-      $doctrine->getManager()->remove($show);
-      $doctrine->getManager()->flush();
 
-      $this->addFlash('success', 'Show successfully deleted !!!!');
+      $csrfToken = new CsrfToken('delete_show', $request->request->get('_csrf_token'));
 
+      if($csrfTokenManager->isTokenValid($csrfToken)){
+        $doctrine->getManager()->remove($show);
+        $doctrine->getManager()->flush();
+
+        $this->addFlash('success', 'The show have been successfully deleted.');
+
+      }else{
+        $this->addFlash('success', 'Csrf Token not valid. No deletion');
+      }
       return $this->redirectToRoute('show_list');
     }
 }
