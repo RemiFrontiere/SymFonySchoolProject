@@ -1,3 +1,7 @@
 {% extends 'show/base.html.twig' %}
+
 {% block pageHeading %} Create User {% endblock %}
-{% block content %}{% endblock %}
+
+{% block content %}
+  {{ form(userForm)}}
+{% endblock %}
