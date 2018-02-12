@@ -39,4 +39,6 @@ services:
         tags: ['show.finder']
 
     AppBundle\ShowFinder\OMDBShowFinder:
+        arguments:
+          - '@csa_guzzle.client.OMBD_api'
         tags: ['show.finder']

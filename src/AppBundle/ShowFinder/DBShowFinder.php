@@ -2,10 +2,20 @@
 
 namespace AppBundle\ShowFinder;
 
-class DBShowFinder implements ShowFinderInterface{
+use Symfony\Bridge\Doctrine\RegistryInterface;
+
+class DBShowFinder implements ShowFinderInterface
+{
+
+  private $doctrine;
+
+  public function _construct(RegistryInterface $doctrine){
+    $this->doctrine = $doctrine;
+  }
 
   public function findByName($query){
-    return;
+    return $this->doctrine->getRepository('AppBundle:Show')->findAllByQuery($query);
+    dump(\GuzzleHttp\json_decode($results->getBody(), true)); die;
   }
 
   public function getName(){

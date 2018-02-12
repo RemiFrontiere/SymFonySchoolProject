@@ -15,6 +15,7 @@ class ShowFinder{
       $tmp[$finder->getName()] = $finder->findByName($query);
     }
 
+    
     return $results;
   }
 
