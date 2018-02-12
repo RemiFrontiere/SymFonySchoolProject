@@ -85,4 +85,5 @@ For me :
   * @ORM\GeneratedValue
   * @ORM\Column(type="integer")
   */
+  
   private $id;
