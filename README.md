@@ -48,8 +48,6 @@ For me :
 ### Search a service
 >bin/console debug:container [Servicename]
 
-container [nameElement]
-
 ## Doctrine DB
     /**
      * @ORM\Id                      --> For PRIMARY KEY
