@@ -1,124 +1,123 @@
 <?php
-
 namespace AppBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ShowRepository")
+ * @ORM\Table(name="s_show")
  */
-
-
-class Show{
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
+class Show
+{
+	/**
+	 * @ORM\Id
+	 * @ORM\GeneratedValue
+	 * @ORM\Column(type="integer")
+	 */
+	private $id;
     /**
      * @ORM\Column
+     * @Assert\NotBlank(message="Please provide a name for the show.", groups={"create", "update"})
      */
-    private $name;
-
+	private $name;
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(groups={"create", "update"})
      */
-    private $abstract;
-
-    /**
+	private $abstract;
+	 /**
      * @ORM\Column
+     * @Assert\NotBlank(groups={"create", "update"})
      */
-    private $country;
-
-    /**
+	private $country;
+	/**
      * @ORM\Column
+     * @Assert\NotBlank(groups={"create", "update"})
      */
-    private $author;
-
+	private $author;
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(groups={"create", "update"})
      */
-    private $releasedDate;
-
+	private $releaseDate;
     /**
      * @ORM\Column
+     * @Assert\Image(minHeight=300, minWidth=750, groups={"create"})
      */
-    private $mainPicture;
-
+	private $mainPicture;
+	private $tmpPicture;
     /**
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     *
+     * @Assert\NotBlank(groups={"create", "update"})
      */
-    private $category;
-
-    public function getName()
-    {
-        return $this->name;
-    }
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getAbstract()
-    {
-        return $this->abstract;
-    }
-
-    public function setAbstract($abstract)
-    {
-        $this->abstract = $abstract;
-    }
-
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
-
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    public function setCategory($category)
-    {
-        $this->category = $category;
-    }
-
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    public function setCountry($country)
-    {
-        $this->country = $country;
-    }
-
-    public function getMainPicture()
-    {
-        return $this->mainPicture;
-    }
-
-    public function setMainPicture($mainPicture)
-    {
-        $this->mainPicture = $mainPicture;
-    }
-
-    public function getReleasedDate()
-    {
-        return $this->releasedDate;
-    }
-
-    public function setReleasedDate($releasedDate)
-    {
-        $this->releasedDate = $releasedDate;
-    }
+	private $category;
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
+	public function getAbstract()
+	{
+		return $this->abstract;
+	}
+	public function setAbstract($abstract)
+	{
+		$this->abstract = $abstract;
+	}
+	public function getCountry()
+	{
+		return $this->country;
+	}
+	public function setCountry($country)
+	{
+		$this->country = $country;
+	}
+	public function getAuthor()
+	{
+		return $this->author;
+	}
+	public function setAuthor($author)
+	{
+		$this->author = $author;
+	}
+	public function getReleaseDate()
+	{
+		return $this->releaseDate;
+	}
+	public function setReleaseDate(\Datetime $releaseDate)
+	{
+		$this->releaseDate = $releaseDate;
+	}
+	public function getMainpicture()
+	{
+		return $this->mainPicture;
+	}
+	public function setMainPicture($mainPicture)
+	{
+		$this->mainPicture = $mainPicture;
+	}
+	public function getTmpPicture()
+	{
+		return $this->tmpPicture;
+	}
+	public function setTmpPicture($tmpPicture)
+	{
+		$this->tmpPicture = $tmpPicture;
+	}
+	public function getCategory()
+	{
+		return $this->category;
+	}
+	public function setCategory(Category $category)
+	{
+		$this->category = $category;
+	}
 }
