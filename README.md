@@ -39,6 +39,8 @@ or
 
 >bin/console doctrine:migration:diff
 
+>bin/console doctrine:migration:migrate
+
 >bin/console doctrine:migration:execute [NumMigration]
 
 For me :
