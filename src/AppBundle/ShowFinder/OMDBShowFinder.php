@@ -2,6 +2,8 @@
 
 namespace AppBundle\ShowFinder;
 
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Show;
 use GuzzleHttp\Client;
 
 class OMDBShowFinder implements ShowFinderInterface
@@ -22,13 +24,17 @@ class OMDBShowFinder implements ShowFinderInterface
 */
 	public function findByName($query)
 	{
-		$results = $this->client->get('/?apikey='.$this->apiKey.'&type=series&t="'.$query.'"');
-		$json = \GuzzleHttp\json_decode($results->getBody(), true);
+		$resultsApi = $this->client->get('/?apikey='.$this->apiKey.'&t="'.$query.'"');
+		$json = \GuzzleHttp\json_decode($resultsApi->getBody(),true);
 
-		if($json['Response'] == 'False' && json['Error'] == 'Series not found!'){
-			return [];
+		if ($json['Response']== 'False' && $json['Error'] == 'Movie not found!')
+		{
+				return [];
 		}
-		return $this->convertToShow();
+		else
+		{
+				return $this->convertToShow($json);
+		}
 	}
 
 	// Create a private function that transform a OMDB JSON into a Show and Category
@@ -53,10 +59,10 @@ class OMDBShowFinder implements ShowFinderInterface
 			->setCountry($json['Country'])
 			->setAuthor('TO DO when the Authentification !')
 			->setReleaseDate(new \DateTime($json['Released']))
-			->setMainPicture($sjon['Poster'])
+			->setMainPicture($json['Poster'])
 			->setCategory($category);
 
-			$shows = $show;
+			$shows[] = $show;
 
 			return $shows;
 	}

@@ -1,10 +1,12 @@
 <?php
 namespace AppBundle\Controller;
+
 use AppBundle\Entity\Category;
 use AppBundle\Type\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
 /**
  * @Route("/category", name="category_")
  */
@@ -16,9 +18,10 @@ class CategoryController extends Controller
                'categories' => $this->getDoctrine()->getRepository('AppBundle:Category')->findAll()
         ]);
     }
-    /**
-	 * @Route("/create", name="create")
-	 */
+
+  /**
+ * @Route("/create", name="create")
+ */
 	public function createAction(Request $request)
 	{
 		$category = new Category();

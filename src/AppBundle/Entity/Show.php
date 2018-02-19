@@ -85,6 +85,8 @@ class Show
 	public function setName($name)
 	{
 		$this->name = $name;
+
+		return $this;
 	}
 
 	public function getAbstract()
@@ -95,6 +97,8 @@ class Show
 	public function setAbstract($abstract)
 	{
 		$this->abstract = $abstract;
+
+		return $this;
 	}
 
 	public function getCountry()
@@ -105,6 +109,8 @@ class Show
 	public function setCountry($country)
 	{
 		$this->country = $country;
+
+		return $this;
 	}
 
 	public function getAuthor()
@@ -115,6 +121,8 @@ class Show
 	public function setAuthor($author)
 	{
 		$this->author = $author;
+
+		return $this;
 	}
 
 	public function getReleaseDate()
@@ -125,6 +133,8 @@ class Show
 	public function setReleaseDate(\Datetime $releaseDate)
 	{
 		$this->releaseDate = $releaseDate;
+
+		return $this;
 	}
 
 	public function getMainpicture()
@@ -135,6 +145,8 @@ class Show
 	public function setMainPicture($mainPicture)
 	{
 		$this->mainPicture = $mainPicture;
+
+		return $this;
 	}
 
 	public function getTmpPicture()
@@ -145,6 +157,8 @@ class Show
 	public function setTmpPicture($tmpPicture)
 	{
 		$this->tmpPicture = $tmpPicture;
+
+		return $this;
 	}
 
 	public function getCategory()
@@ -155,6 +169,8 @@ class Show
 	public function setCategory(Category $category)
 	{
 		$this->category = $category;
+
+		return $this;
 	}
 
 	public function getDataSource()

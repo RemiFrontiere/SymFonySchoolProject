@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Welcome on Showroom</title>
+    <title>Blog Home - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -19,11 +19,22 @@
   </head>
 
   <body>
+
+    {# {% include "_includes/menu.html.twig" %} #}
+
     {% embed "_includes/menu.html.twig" %}
        {% block menu_title %}
-           Showroom
+           {{ parent() }} by Dreamteam - {% if app.environment != 'prod' %}Current env = {{ app.environment }}{% endif %}
        {% endblock %}
     {% endembed %}
+
+    {% for label, messages in app.flashes %}
+    <div class="alert alert-{{ label }}" role="alert">
+      {% for message in messages %}
+          {{ message }}
+      {% endfor %}
+    </div>
+    {% endfor %}
 
     <!-- Page Content -->
     <div class="container">
@@ -33,9 +44,22 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-          <h1 class="my-4">Welcome</h1>
+          <h1 class="my-4">
+            {% block pageHeading %}
+              Page Heading
+              <small>Secondary Text</small>
+            {% endblock %}
+          </h1>
 
           {% block content%}{% endblock content %}
+        </div>
+          <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          {{ include("_includes/searchBar.html.twig") }}
+
+          {{ render(controller("AppBundle\\Controller\\CategoryController::categoriesAction")) }}
+
         </div>
       </div>
       <!-- /.row -->
@@ -44,7 +68,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Symfony course DIM 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Rémi FRONTIERE</p>
       </div>
       <!-- /.container -->
     </footer>

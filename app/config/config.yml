@@ -75,4 +75,4 @@ csa_guzzle:
     clients:
       OMBD_api:
         config:
-          base_uri: 'http://www.omdbapo.com'
+          base_uri: 'http://www.omdbapi.com'
