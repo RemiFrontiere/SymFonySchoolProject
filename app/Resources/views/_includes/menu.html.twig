@@ -7,6 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
+        {% if app.user %}
         <li class="nav-item {% if app.request.attributes.get('_route') == 'show_list' %}active{% endif %}">
           <a class="nav-link" href="{{ path('show_list') }}">Home
             <span class="sr-only">(current)</span>
@@ -24,8 +25,6 @@
         <li class="nav-item {% if app.request.attributes.get('_route') == 'user_list' %}active{% endif %}">
           <a class="nav-link" href="{{ path('user_list') }}">List users</a>
         </li>
-
-        {% if app.user %}
         <li class="nav-item {% if app.request.attributes.get('_route') == 'security_logout' %}active{% endif %}">
           <a class="nav-link" href="{{ path('security_logout') }}">Logout</a>
         </li>
