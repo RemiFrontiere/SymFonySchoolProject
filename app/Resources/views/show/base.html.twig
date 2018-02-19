@@ -24,7 +24,7 @@
 
     {% embed "_includes/menu.html.twig" %}
        {% block menu_title %}
-           {{ parent() }} by Rémi Frontiere
+           {{ parent() }} by Dreamteam - {% if app.environment != 'prod' %}Current env = {{ app.environment }}{% endif %}
        {% endblock %}
     {% endembed %}
 
@@ -58,7 +58,7 @@
 
           {{ include("_includes/searchBar.html.twig") }}
 
-          {{ render(controller("AppBundle\\Controller\\ShowController::categoriesAction")) }}
+          {{ render(controller("AppBundle\\Controller\\CategoryController::categoriesAction")) }}
 
         </div>
       </div>
@@ -68,7 +68,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Remi Frontiere</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Symfony course DIM 2018</p>
       </div>
       <!-- /.container -->
     </footer>

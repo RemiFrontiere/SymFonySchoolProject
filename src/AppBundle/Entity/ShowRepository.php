@@ -1,6 +1,9 @@
 <?php
+
 namespace AppBundle\Entity;
+
 use Doctrine\ORM\EntityRepository;
+
 class ShowRepository extends EntityRepository
 {
 	public function findAllByQuery($query)

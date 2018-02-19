@@ -2,21 +2,67 @@
 
 namespace AppBundle\ShowFinder;
 
-use GuzzleHttp\Client\Client;
+use GuzzleHttp\Client;
 
-class OMDBShowFinder implements ShowFinderInterface{
+class OMDBShowFinder implements ShowFinderInterface
+{
+	private $client;
+	private $apiKey;
 
-  private $client;
+	public function __construct(Client $client, $apiKey)
+	{
+		$this->client = $client;
+		$this->apiKey = $apiKey;
+	}
 
-  public function _construct(Client $client){
-    $this->client = $client;
-  }
+/**
+* Find a show by a string
+* @param String $query
+* @return Array $shows
+*/
+	public function findByName($query)
+	{
+		$results = $this->client->get('/?apikey='.$this->apiKey.'&type=series&t="'.$query.'"');
+		$json = \GuzzleHttp\json_decode($results->getBody(), true);
 
-  public function findByName($query){
-    $this->client->get('/?apikey=29337efc&type=series&t="walking"');
-  }
+		if($json['Response'] == 'False' && json['Error'] == 'Series not found!'){
+			return [];
+		}
+		return $this->convertToShow();
+	}
 
-  public function getName(){
-    return 'IMDB API';
-  }
+	// Create a private function that transform a OMDB JSON into a Show and Category
+
+	/**
+	*
+	* @param String $json
+	* Show[] $shows
+	*
+	*
+	*/
+	private function convertToShow($json){
+		$category = new Category();
+		$category->setName($json['Genre']);
+
+		$shows = [];
+		$show = new Show();
+		$show
+			->setName($json['Title'])
+			->setDataSource(Show::DATA_SOURCE_OMDB)
+			->setAbstract('Not provided')
+			->setCountry($json['Country'])
+			->setAuthor('TO DO when the Authentification !')
+			->setReleaseDate(new \DateTime($json['Released']))
+			->setMainPicture($sjon['Poster'])
+			->setCategory($category);
+
+			$shows = $show;
+
+			return $shows;
+	}
+
+	public function getName()
+	{
+		return 'IMDB API';
+	}
 }
