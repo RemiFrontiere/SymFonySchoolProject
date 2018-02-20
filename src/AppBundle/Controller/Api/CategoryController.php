@@ -15,11 +15,9 @@ class CategoryController extends Controller {
   * @Route("/categories", name="api_category_list")
   *
   */
-  public function listAction(SerializerInterface $serializer){
+  public function listAction(){
     $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
 
-    $data = $serializer->serialize($categories, 'json');
-
-    return $this->json($data);
+    return $this->json($categories);
   }
 }
