@@ -2,17 +2,24 @@
 
 namespace AppBundle\Controller\Api;
 
+use AppBundle\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
+
+
+/**
+* @Route(name="api_category_")
+*
+*/
 class CategoryController extends Controller {
 
   /**
   * @Method({"GET"})
-  * @Route("/categories", name="api_category_list")
+  * @Route("/categories", name="list")
   *
   */
   public function listAction(SerializerInterface $serializer){
@@ -22,4 +29,16 @@ class CategoryController extends Controller {
 
     return new Response($data, Response::HTTP_OK, ['Content-Type' => 'application\json']);
   }
+
+  /**
+  * @Method({"GET"})
+  * @Route("/categories/{id}", name="get")
+  */
+  public function getAction(Category $category, SerializerInterface $serializer)
+  {
+    $json = $serializer->serialize($category, 'json');
+
+    return new Response($json, Response::HTTP_OK, ['Content-Type' => 'application\json']);
+  }
+
 }
