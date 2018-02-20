@@ -1,18 +1,14 @@
 <?php
-
 namespace AppBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as JMS;
-
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
+ *
  * @UniqueEntity("name", message="{{ value }} is already in database")
  *
  * @JMS\ExclusionPolicy("all")
- *
  */
 class Category
 {
@@ -22,19 +18,16 @@ class Category
 	 * @ORM\Column(type="integer")
 	 */
 	private $id;
-
     /**
      * @ORM\Column(type="string", unique=true)
-		 *
-		 * @JMS\Expose
+     *
+     * @JMS\Expose
      */
 	private $name;
-
 	public function getName()
 	{
 		return $this->name;
 	}
-
 	public function setName($name)
 	{
 		$this->name = $name;

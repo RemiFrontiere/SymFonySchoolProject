@@ -1,39 +1,39 @@
 <?php
 namespace AppBundle\Controller\Api;
-use AppBundle\Entity\Show;
+use AppBundle\Entity\User;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 /**
- * @Route(name="api_show_")
+ * @Route(name="api_user_")
  */
-class ShowController extends Controller
+class UserController extends Controller
 {
 	/**
 	 * @Method({"GET"})
-	 * @Route("/shows", name="list")
+	 * @Route("/users", name="list")
 	 */
 	public function listAction(SerializerInterface $serializer)
 	{
-		$shows = $this->getDoctrine()->getRepository('AppBundle:Show')->findAll();
+		$users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
 		$serialzationContext = SerializationContext::create();
 		return $this->returnResponse(
-			$serializer->serialize($shows, 'json', $serialzationContext->setGroups(['show'])),
+			$serializer->serialize($users, 'json', $serialzationContext->setGroups(['user'])),
 			Response::HTTP_OK
 		);
 	}
 	/**
 	 * @Method({"GET"})
-	 * @Route("/shows/{id}", name="get")
+	 * @Route("/users/{id}", name="get")
 	 */
-	public function getAction(Show $show, SerializerInterface $serializer)
+	public function getAction(User $user, SerializerInterface $serializer)
 	{
 		$serialzationContext = SerializationContext::create();
 		return $this->returnResponse(
-			$serializer->serialize($show, 'json', $serialzationContext->setGroups(['show'])),
+			$serializer->serialize($user, 'json', $serialzationContext->setGroups(['user'])),
 			Response::HTTP_OK
-			);
+		);
 	}
 }
