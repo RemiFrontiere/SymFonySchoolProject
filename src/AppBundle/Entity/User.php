@@ -24,20 +24,29 @@ class User implements UserInterface
 	 * @JMS\Groups({"user"})
 	 */
 	private $id;
-    /**
-     * @ORM\Column
-     * @JMS\Expose
-     * @JMS\Groups({"user", "show"})
-     */
+
+  /**
+   * @ORM\Column
+   * @JMS\Expose
+   * @JMS\Groups({"user", "show"})
+   */
 	private $fullname;
-    /**
-     * @ORM\Column(type="json_array")
-     */
+
+  /**
+	 * @JMS\Expose
+	 * @JMS\Type("string")
+	 * @JMS\Groups({"user_create"})
+   * @ORM\Column(type="json_array")
+   */
 	private $roles;
+
 	/**
-     * @ORM\Column
-     */
+   * @ORM\Column
+	 * @JMS\Expose
+	 * @JMS\Groups({"user_create"})
+   */
 	private $password;
+
 	/**
 	 * @ORM\Column
 	 *
@@ -47,62 +56,77 @@ class User implements UserInterface
 	 * @JMS\Groups({"user"})
 	 */
 	private $email;
+
 	/**
 	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author")
 	 */
 	private $shows;
+
 	public function __construct()
 	{
 		$this->shows = new ArrayCollection();
 	}
+
 	public function getFullname()
 	{
 		return $this->fullname;
 	}
+
 	public function setFullname($name)
 	{
 		$this->fullname = $name;
 	}
+
 	public function getRoles()
 	{
 		return $this->roles;
 	}
+
 	public function setRoles($roles)
 	{
 		$this->roles = $roles;
 	}
+
 	public function getPassword()
 	{
 		return $this->password;
 	}
+
 	public function setPassword($password)
 	{
 		$this->password = $password;
 	}
+
 	public function getSalt()
 	{
 	}
+
 	public function getUsername()
 	{
 		return $this->email;
 	}
+
 	public function setUsername($email)
 	{
 		$this->email = $email;
 	}
+
 	public function eraseCredentials()
 	{
 	}
+
 	public function addShow(Show $show)
 	{
 		if (!$this->shows->contains($show)){
 			$this->shows->add($show);
 		}
 	}
+
 	public function removeShow(Show $show)
 	{
 		$this->shows->remove($show);
 	}
+
 	public function getShows()
 	{
 		return $this->shows;
