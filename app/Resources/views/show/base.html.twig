@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>Showroom</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -24,7 +24,7 @@
 
     {% embed "_includes/menu.html.twig" %}
        {% block menu_title %}
-           {{ parent() }} by Dreamteam - {% if app.environment != 'prod' %}Current env = {{ app.environment }}{% endif %}
+          Showroom
        {% endblock %}
     {% endembed %}
 
@@ -46,8 +46,7 @@
 
           <h1 class="my-4">
             {% block pageHeading %}
-              Page Heading
-              <small>Secondary Text</small>
+              Showroom
             {% endblock %}
           </h1>
 
