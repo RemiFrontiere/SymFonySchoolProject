@@ -46,7 +46,7 @@ class Show
      */
 	private $country;
 	/**
-	 * @ORM\ManyToOne(targetEntity="User", inversedBy="shows", cascade={"remove"})
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="shows")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Expose
      * @JMS\Groups({"show"})

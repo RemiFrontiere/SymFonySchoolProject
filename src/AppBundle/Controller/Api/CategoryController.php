@@ -67,16 +67,4 @@ class CategoryController extends Controller
 		}
 		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
 	}
-
-	/**
-	 * @Method({"DELETE"})
-	 * @Route("/categories/{id}", name="delete")
-	 */
-	public function deleteAction(Category $category)
-	{
-		$this->getDoctrine()->getManager()->remove($category);
-		$this->getDoctrine()->getManager()->flush();
-
-		return $this->returnResponse('Category deleted', Response::HTTP_OK);
-	}
 }
