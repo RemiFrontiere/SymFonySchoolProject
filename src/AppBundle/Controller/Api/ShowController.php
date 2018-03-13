@@ -31,9 +31,23 @@ class ShowController extends Controller
 	public function getAction(Show $show, SerializerInterface $serializer)
 	{
 		$serialzationContext = SerializationContext::create();
+		var_dump($serialzationContext);
 		return $this->returnResponse(
 			$serializer->serialize($show, 'json', $serialzationContext->setGroups(['show'])),
 			Response::HTTP_OK
 			);
+	}
+
+
+	/**
+	 * @Method({"DELETE"})
+	 * @Route("/shows/{id}", name="delete")
+	 */
+	public function deleteAction(Show $show)
+	{
+		$this->getDoctrine()->getManager()->remove($show);
+		$this->getDoctrine()->getManager()->flush();
+
+		return $this->returnResponse('Show deleted', Response::HTTP_OK);
 	}
 }

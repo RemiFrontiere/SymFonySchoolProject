@@ -6,7 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ShowRepository")
  * @ORM\Table(name="s_show")
- *
  * @JMS\ExclusionPolicy("all")
  */
 class Show
@@ -47,7 +46,7 @@ class Show
      */
 	private $country;
 	/**
-	 * @ORM\ManyToOne(targetEntity="User", inversedBy="shows")
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="shows", cascade={"remove"})
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Expose
      * @JMS\Groups({"show"})

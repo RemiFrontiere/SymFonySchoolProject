@@ -58,7 +58,7 @@ class User implements UserInterface
 	private $email;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author")
+	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author", cascade={"remove"})
 	 */
 	private $shows;
 
@@ -121,6 +121,22 @@ class User implements UserInterface
 			$this->shows->add($show);
 		}
 	}
+
+	public function update(User $user)
+	{
+		$this->fullname = $user->getFullname();
+		$this->roles = $user->getRoles();
+		$this->password = $user->getPassword();
+		$this->email = $user->getUsername();
+	}
+
+	// public function delete(User $user)
+	// {
+	// 	$this->fullname = $user->getFullname();
+	// 	$this->roles = $user->getRoles();
+	// 	$this->password = $user->getPassword();
+	// 	$this->email = $user->getUsername();
+	// }
 
 	public function removeShow(Show $show)
 	{

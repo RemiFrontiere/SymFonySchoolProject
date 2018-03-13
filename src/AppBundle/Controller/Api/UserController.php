@@ -73,4 +73,34 @@ class UserController extends Controller
 
 		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
 	}
+
+	/**
+	 * @Method({"PUT"})
+	 * @Route("/users/{id}", name="update")
+	 */
+	public function updateAction(User $user, Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+	{
+		$newUser = $serializer->deserialize($request->getContent(), User::class, 'json');
+		$constraintValidationList = $validator->validate($newUser);
+
+		if($constraintValidationList->count() == 0){
+			$user->update($newUser);
+			$this->getDoctrine()->getManager()->flush();
+
+			return $this->returnResponse('User updated', Response::HTTP_OK);
+		}
+		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
+	}
+
+	/**
+	 * @Method({"DELETE"})
+	 * @Route("/users/{id}", name="delete")
+	 */
+	public function deleteAction(User $user)
+	{
+		$this->getDoctrine()->getManager()->remove($user);
+		$this->getDoctrine()->getManager()->flush();
+
+		return $this->returnResponse('User deleted', Response::HTTP_OK);
+	}
 }
