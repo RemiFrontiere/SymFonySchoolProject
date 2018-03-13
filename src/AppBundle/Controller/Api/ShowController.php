@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ShowController extends Controller
 {
+
 	/**
 	 * @Method({"GET"})
 	 * @Route("/shows", name="list")
@@ -29,6 +30,8 @@ class ShowController extends Controller
 			Response::HTTP_OK
 		);
 	}
+
+
 	/**
 	 * @Method({"GET"})
 	 * @Route("/shows/{id}", name="get")
@@ -42,8 +45,6 @@ class ShowController extends Controller
 			Response::HTTP_OK
 			);
 	}
-
-
 
 	/**
 	 * @Route("/shows/{id}", name="update")
@@ -66,6 +67,8 @@ class ShowController extends Controller
 
       return new Response($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
     }
+
+
 
 	/**
 	 * @Method({"DELETE"})

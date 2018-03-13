@@ -40,12 +40,14 @@ class User implements UserInterface
    */
 	private $roles;
 
+
 	/**
    * @ORM\Column
 	 * @JMS\Expose
 	 * @JMS\Groups({"user_create"})
    */
 	private $password;
+
 
 	/**
 	 * @ORM\Column
@@ -57,8 +59,9 @@ class User implements UserInterface
 	 */
 	private $email;
 
+
 	/**
-	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author", cascade={"remove"})
+	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author",cascade={"remove"})
 	 */
 	private $shows;
 

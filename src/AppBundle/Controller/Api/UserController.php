@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserController extends Controller
 {
 
+
 	/**
 	 * @Method({"GET"})
 	 * @Route("/users", name="list")
@@ -32,6 +33,7 @@ class UserController extends Controller
 		);
 	}
 
+
 	/**
 	 * @Method({"GET"})
 	 * @Route("/users/{id}", name="get")
@@ -44,6 +46,7 @@ class UserController extends Controller
 			Response::HTTP_OK
 		);
 	}
+
 
 	/**
 	 * @Method({"POST"})
@@ -73,6 +76,7 @@ class UserController extends Controller
 
 		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
 	}
+
 
 	/**
 	 * @Method({"PUT"})

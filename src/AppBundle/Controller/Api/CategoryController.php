@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class CategoryController extends Controller
 {
+
+
 	/**
 	 * @Method({"GET"})
 	 * @Route("/categories", name="list")
@@ -22,6 +24,8 @@ class CategoryController extends Controller
 		$categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findAll();
 		return $this->returnResponse($serializer->serialize($categories, 'json'), Response::HTTP_OK);
 	}
+
+
 	/**
 	 * @Method({"GET"})
 	 * @Route("/categories/{id}", name="get")
@@ -30,6 +34,7 @@ class CategoryController extends Controller
 	{
 		return $this->returnResponse($serializer->serialize($category, 'json'), Response::HTTP_OK);
 	}
+
 
 	/**
 	 * @Method({"POST"})
@@ -50,6 +55,7 @@ class CategoryController extends Controller
 		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
 	}
 
+
 	/**
 	 * @Method({"PUT"})
 	 * @Route("/categories/{id}", name="update")
@@ -67,6 +73,7 @@ class CategoryController extends Controller
 		}
 		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
 	}
+
 
 	/**
 	 * @Method({"DELETE"})
