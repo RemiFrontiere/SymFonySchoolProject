@@ -73,4 +73,16 @@ class UserController extends Controller
 
 		return $this->returnResponse($serializer->serialize($constraintValidationList, 'json'), Response::HTTP_BAD_REQUEST);
 	}
+
+	/**
+	 * @Method({"DELETE"})
+	 * @Route("/users/{id}", name="delete")
+	 */
+	public function deleteAction(User $user)
+	{
+			$this->getDoctrine()->getManager()->remove($user);
+			$this->getDoctrine()->getManager()->flush();
+
+			return $this->returnResponse('User deleted', Response::HTTP_OK);
+	}
 }

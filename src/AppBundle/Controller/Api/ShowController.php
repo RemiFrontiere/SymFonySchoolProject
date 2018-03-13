@@ -42,4 +42,16 @@ class ShowController extends Controller
 			Response::HTTP_OK
 			);
 	}
+
+	/**
+	 * @Method({"DELETE"})
+	 * @Route("/shows/{id}", name="delete")
+	 */
+	public function deleteAction(Show $show)
+	{
+			$this->getDoctrine()->getManager()->remove($show);
+			$this->getDoctrine()->getManager()->flush();
+
+			return $this->returnResponse('Show deleted', Response::HTTP_OK);
+	}
 }
