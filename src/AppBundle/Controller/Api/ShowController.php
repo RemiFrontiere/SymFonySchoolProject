@@ -49,7 +49,6 @@ class ShowController extends Controller
      */
   public function putAction(Show $show, Request $request, SerializerInterface $serializer, ValidatorInterface $validator) {
       $newShow = $serializer->deserialize($request->getContent(), Show::class, 'json');
-      dump($newShow); die;
 
       $constraintValidationList = $validator->validate($show);
 
