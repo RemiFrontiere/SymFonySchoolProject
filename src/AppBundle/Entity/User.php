@@ -1,16 +1,19 @@
 <?php
+
 namespace AppBundle\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * @ORM\Entity
  * @ORM\Table
  *
- * @UniqueEntity("email")
+ * @UniqueEntity("email", groups={"create"})
  *
  * @JMS\ExclusionPolicy("all")
  */
@@ -25,40 +28,50 @@ class User implements UserInterface
 	 */
 	private $id;
 
-  /**
-   * @ORM\Column
-   * @JMS\Expose
-   * @JMS\Groups({"user", "show"})
-   */
+    /**
+     * @ORM\Column
+     *
+	 * @Assert\NotBlank
+     *
+     * @JMS\Expose
+     * @JMS\Groups({"user", "show"})
+     */
 	private $fullname;
 
-  /**
-	 * @JMS\Expose
-	 * @JMS\Type("string")
-	 * @JMS\Groups({"user_create"})
-   * @ORM\Column(type="json_array")
-   */
+    /**
+     * @ORM\Column(type="json_array")
+     *
+     * @Assert\NotBlank(groups={"create"})
+     *
+     * @JMS\Expose
+     * @JMS\Type("string")
+     * @JMS\Groups({"user_create"})
+     */
 	private $roles;
 
 	/**
-   * @ORM\Column
-	 * @JMS\Expose
-	 * @JMS\Groups({"user_create"})
-   */
+     * @ORM\Column
+     *
+     * @Assert\NotBlank(groups={"create"})
+     *
+     * @JMS\Expose
+     * @JMS\Groups({"user_create"})
+     */
 	private $password;
 
 	/**
 	 * @ORM\Column
 	 *
 	 * @Assert\Email
-	 *
+	 * @Assert\NotBlank(groups={"create"})
+	 * 
 	 * @JMS\Expose
 	 * @JMS\Groups({"user"})
 	 */
 	private $email;
 
 	/**
-	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author",cascade={"remove"}))
+	 * @ORM\OneToMany(targetEntity="Show", mappedBy="author", cascade={"remove"})
 	 */
 	private $shows;
 
@@ -122,22 +135,6 @@ class User implements UserInterface
 		}
 	}
 
-	public function update(User $user)
-	{
-		$this->fullname = $user->getFullname();
-		$this->roles = $user->getRoles();
-		$this->password = $user->getPassword();
-		$this->email = $user->getUsername();
-	}
-
-	// public function delete(User $user)
-	// {
-	// 	$this->fullname = $user->getFullname();
-	// 	$this->roles = $user->getRoles();
-	// 	$this->password = $user->getPassword();
-	// 	$this->email = $user->getUsername();
-	// }
-
 	public function removeShow(Show $show)
 	{
 		$this->shows->remove($show);
@@ -146,5 +143,13 @@ class User implements UserInterface
 	public function getShows()
 	{
 		return $this->shows;
+	}
+
+	public function update(User $user)
+	{
+		$this->fullname = $user->getFullname();
+		$this->roles = explode( ', ', $user->getRoles());
+		$this->password = $user->getPassword();
+		$this->email = $user->getUsername();
 	}
 }

@@ -1,7 +1,10 @@
-{% extends 'show/base.html.twig' %}
+{% extends "show/base.html.twig" %}
 
-{% block pageHeading %}List of Users{% endblock %}
-{% block content %}
+{% block pageHeading %}
+List of users
+{% endblock %}
+
+{% block content%}
 <table class="table">
   <thead>
     <tr>
@@ -9,27 +12,25 @@
       <th scope="col">Fullname</th>
       <th scope="col">Email</th>
       <th scope="col">Roles</th>
+      <th scope="col">Shows</th>
     </tr>
   </thead>
   <tbody>
-    {% for user in users %}
+  	{% for user in users %}
     <tr>
       <th scope="row">1</th>
       <td>{{ user.fullname }}</td>
       <td>{{ user.username }}</td>
-      <td>{{ user.roles | join(', ') }}</td>
+      <td>{{ user.roles | join(', ')}}</td>
       <td>
-        {% for show in user.shows %}
-          {{ show.name }}
-          {% if not loop.last %}
-            ,
-          {% else %}
-            No shows yet!
-          {% endif %}
-        {% endfor %}
+      {% for show in user.shows %}
+          {{ show.name }}{% if not loop.last %},{% endif %}
+      {% else %}
+          No shows yet!
+      {% endfor %}
       </td>
     </tr>
-    {% endfor %}
+   {% endfor %}
   </tbody>
 </table>
-{% endblock %}
+{% endblock content %}

@@ -24,7 +24,7 @@
 
     {% embed "_includes/menu.html.twig" %}
        {% block menu_title %}
-          Showroom
+           {{ parent() }} by Dreamteam - {% if app.environment != 'prod' %}Current env = {{ app.environment }}{% endif %}
        {% endblock %}
     {% endembed %}
 
@@ -46,7 +46,8 @@
 
           <h1 class="my-4">
             {% block pageHeading %}
-              Showroom
+              Page Heading
+              <small>Secondary Text</small>
             {% endblock %}
           </h1>
 

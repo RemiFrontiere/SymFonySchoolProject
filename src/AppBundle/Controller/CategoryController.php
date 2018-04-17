@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CategoryController extends Controller
 {
+
     public function categoriesAction()
     {
         return $this->render('_includes/categories.html.twig', [
@@ -19,21 +21,27 @@ class CategoryController extends Controller
         ]);
     }
 
-  /**
- * @Route("/create", name="create")
- */
+    /**
+	 * @Route("/create", name="create")
+	 */
 	public function createAction(Request $request)
 	{
 		$category = new Category();
 		$form = $this->createForm(CategoryType::class, $category);
+
 		$form->handleRequest($request);
+
 		if ($form->isValid()) {
 			$em = $this->getDoctrine()->getManager();
+
 			$em->persist($category);
 			$em->flush();
+
 			$this->addFlash('success', 'You successfully added a new category');
+
 			return $this->redirectToRoute('show_list');
 		}
+
 		return $this->render('category/create.html.twig', ['categoryForm' => $form->createView()]);
 	}
 }

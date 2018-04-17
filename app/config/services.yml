@@ -29,21 +29,41 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-
+    # add more services, or override services that need manual wiring
     AppBundle\File\FileUploader:
         arguments:
             $uploadDirectoryFile: '%upload_directory_file%'
             $pathToProject: '%kernel.project_dir%'
+
 
     AppBundle\ShowFinder\DBShowFinder:
         tags: ['show.finder']
 
     AppBundle\ShowFinder\OMDBShowFinder:
         arguments:
-          $client: '@csa_guzzle.client.OMBD_api'
-          $tokenStorage: '@security.token_storage'
-          $apiKey: '%OMDB_api_key%'
+            $apiKey: '%OMDB_api_key%'
+            $client: '@csa_guzzle.client.OMBD_api'
+            $tokenStorage: '@security.token_storage'
         tags: ['show.finder']
+
+# Without named parameters
+    #AppBundle\ShowFinder\OMDBShowFinder:
+    #    arguments:
+    #        - '@csa_guzzle.client.OMBD_api'
+    #        - '%OMDB_api_key%'
+    #    tags: ['show.finder']
 
     AppBundle\Security\Authorization\ShowVoter:
         tags: ['security.voter']
+    AppBundle\Security\Authorization\UserVoter:
+        tags: ['security.voter']
+
+    AppBundle\Security\Authentication\ApiUserPasswordAuthenticator:
+        arguments:
+            $encoderFactory: '@security.encoder_factory.generic'
+
+    AppBundle\Serializer\Handler\ShowHandler:
+        tags: ['jms_serializer.subscribing_handler']
+
+    #AppBundle\Serializer\Listener\ShowListener:
+    #    tags: ['jms_serializer.event_subscriber']
